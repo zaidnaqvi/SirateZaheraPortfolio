@@ -1,0 +1,2232 @@
+<!doctype html>
+<html lang="en" class="scroll-smooth">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta
+      name="description"
+      content="Sirate Zahera Naqvi — Software Engineer & Security Explorer portfolio."
+    />
+    <title>Sirate Zahera Naqvi — Software Engineer & Security Explorer</title>
+
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/gh/devicons/devicon@v2.15.1/devicon.min.css"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=Outfit:wght@300;400;500;600;700&family=Space+Grotesk:wght@500;600;700&display=swap"
+      rel="stylesheet"
+    />
+
+    <script>
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            fontFamily: {
+              sans: ["Outfit", "sans-serif"],
+              display: ["Space Grotesk", "sans-serif"],
+              mono: ["DM Mono", "monospace"],
+            },
+          },
+        },
+      };
+    </script>
+
+    <style>
+      :root {
+        --bg-color: #09090b;
+        --surface-color: #111116;
+        --surface-2: #17171e;
+        --border-color: rgba(255, 255, 255, 0.09);
+        --text-main: #f5f5f7;
+        --text-muted: #9696a5;
+        --accent: #f43f5e;
+        --accent-2: #8b5cf6;
+        --cursor-x: 50vw;
+        --cursor-y: 30vh;
+      }
+
+      .light-mode {
+        --bg-color: #f6f6f8;
+        --surface-color: #ffffff;
+        --surface-2: #eeeef2;
+        --border-color: rgba(0, 0, 0, 0.09);
+        --text-main: #111116;
+        --text-muted: #666673;
+        --accent: #e11d48;
+        --accent-2: #6d28d9;
+      }
+
+      * {
+        box-sizing: border-box;
+      }
+      html {
+        scroll-behavior: smooth;
+      }
+      body {
+        margin: 0;
+        background: var(--bg-color);
+        color: var(--text-main);
+        font-family: "Outfit", sans-serif;
+        overflow-x: hidden;
+        transition:
+          background-color 0.4s ease,
+          color 0.4s ease;
+      }
+
+      ::selection {
+        background: var(--accent);
+        color: #fff;
+      }
+
+      .display-font {
+        font-family: "Space Grotesk", sans-serif;
+      }
+      .mono-font {
+        font-family: "DM Mono", monospace;
+      }
+
+      .ambient-glow {
+        position: fixed;
+        inset: 0;
+        z-index: -3;
+        pointer-events: none;
+        overflow: hidden;
+        background:
+          radial-gradient(
+            circle at 15% 12%,
+            rgba(244, 63, 94, 0.075),
+            transparent 32%
+          ),
+          radial-gradient(
+            circle at 88% 78%,
+            rgba(99, 102, 241, 0.065),
+            transparent 32%
+          ),
+          radial-gradient(
+            circle at var(--cursor-x) var(--cursor-y),
+            rgba(244, 63, 94, 0.055),
+            transparent 25%
+          );
+      }
+
+      .grid-overlay {
+        position: fixed;
+        inset: 0;
+        z-index: -2;
+        pointer-events: none;
+        opacity: 0.035;
+        background-image:
+          linear-gradient(rgba(255, 255, 255, 0.8) 1px, transparent 1px),
+          linear-gradient(90deg, rgba(255, 255, 255, 0.8) 1px, transparent 1px);
+        background-size: 55px 55px;
+        mask-image: linear-gradient(to bottom, black, transparent 85%);
+      }
+
+      .noise {
+        position: fixed;
+        inset: 0;
+        z-index: 80;
+        pointer-events: none;
+        opacity: 0.025;
+        background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 180 180' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='.55'/%3E%3C/svg%3E");
+      }
+
+      .floating-blob {
+        position: absolute;
+        width: 460px;
+        height: 460px;
+        border-radius: 999px;
+        filter: blur(90px);
+        background: linear-gradient(
+          135deg,
+          rgba(244, 63, 94, 0.09),
+          rgba(59, 130, 246, 0.035)
+        );
+        animation: floatSlow 11s ease-in-out infinite;
+      }
+
+      @keyframes floatSlow {
+        0%,
+        100% {
+          transform: translate3d(0, 0, 0) scale(1);
+        }
+        50% {
+          transform: translate3d(0, -28px, 0) scale(1.05);
+        }
+      }
+
+      .progress-line {
+        position: fixed;
+        top: 0;
+        left: 0;
+        height: 2px;
+        width: 0;
+        z-index: 100;
+        background: linear-gradient(
+          90deg,
+          var(--accent),
+          #fb7185,
+          var(--accent-2)
+        );
+        box-shadow: 0 0 18px rgba(244, 63, 94, 0.55);
+      }
+
+      .art-nav,
+      .art-card {
+        background: color-mix(in srgb, var(--surface-color) 91%, transparent);
+        border: 1px solid var(--border-color);
+        backdrop-filter: blur(18px);
+        -webkit-backdrop-filter: blur(18px);
+      }
+
+      .art-card {
+        transition:
+          transform 0.45s cubic-bezier(0.16, 1, 0.3, 1),
+          border-color 0.35s ease,
+          box-shadow 0.35s ease,
+          background 0.35s ease;
+      }
+
+      .art-card:hover {
+        border-color: color-mix(
+          in srgb,
+          var(--accent) 58%,
+          var(--border-color)
+        );
+        box-shadow: 0 22px 70px rgba(0, 0, 0, 0.18);
+        transform: translateY(-5px);
+      }
+
+      .project-card {
+        transform-style: preserve-3d;
+      }
+      .project-card .project-visual {
+        transition:
+          transform 0.65s cubic-bezier(0.16, 1, 0.3, 1),
+          filter 0.65s ease;
+      }
+      .project-card:hover .project-visual {
+        transform: scale(1.045);
+        filter: saturate(1.12);
+      }
+
+      .hero-word {
+        letter-spacing: -0.065em;
+        line-height: 0.86;
+      }
+
+      .hero-orbit {
+        animation: spin 24s linear infinite;
+        transform-origin: center;
+      }
+
+      @keyframes spin {
+        to {
+          transform: rotate(360deg);
+        }
+      }
+
+      .float-chip {
+        animation: chipFloat 5s ease-in-out infinite;
+      }
+      .float-chip:nth-child(2) {
+        animation-delay: -1.6s;
+      }
+      .float-chip:nth-child(3) {
+        animation-delay: -3.1s;
+      }
+      @keyframes chipFloat {
+        0%,
+        100% {
+          transform: translateY(0);
+        }
+        50% {
+          transform: translateY(-8px);
+        }
+      }
+
+      .marquee-track {
+        display: flex;
+        width: max-content;
+        animation: marquee 26s linear infinite;
+      }
+      @keyframes marquee {
+        to {
+          transform: translateX(-50%);
+        }
+      }
+
+      .timeline-line {
+        background: linear-gradient(
+          to bottom,
+          var(--accent),
+          rgba(244, 63, 94, 0.08)
+        );
+      }
+
+      .terminal-line {
+        opacity: 0;
+        transform: translateY(8px);
+      }
+      .terminal-line.show {
+        opacity: 1;
+        transform: translateY(0);
+        transition: 0.5s ease;
+      }
+
+      .blink {
+        animation: blink 1s steps(1) infinite;
+      }
+      @keyframes blink {
+        50% {
+          opacity: 0;
+        }
+      }
+
+      .filter-btn.active {
+        background: var(--accent);
+        color: white;
+        border-color: var(--accent);
+      }
+
+      .social-dock {
+        box-shadow: 0 18px 50px rgba(0, 0, 0, 0.22);
+      }
+
+      .custom-cursor,
+      .cursor-label {
+        position: fixed;
+        pointer-events: none;
+        z-index: 110;
+        display: none;
+      }
+
+      .custom-cursor {
+        width: 10px;
+        height: 10px;
+        border-radius: 50%;
+        background: var(--accent);
+        transform: translate(-50%, -50%);
+        box-shadow: 0 0 20px rgba(244, 63, 94, 0.5);
+      }
+
+      .cursor-ring {
+        position: fixed;
+        width: 34px;
+        height: 34px;
+        border: 1px solid rgba(244, 63, 94, 0.7);
+        border-radius: 50%;
+        pointer-events: none;
+        z-index: 109;
+        transform: translate(-50%, -50%);
+        transition:
+          width 0.2s ease,
+          height 0.2s ease,
+          background 0.2s ease,
+          border-color 0.2s ease;
+        display: none;
+      }
+
+      .cursor-ring.is-hover {
+        width: 64px;
+        height: 64px;
+        background: rgba(244, 63, 94, 0.08);
+        border-color: var(--accent);
+      }
+
+      .cursor-label {
+        font:
+          700 9px "DM Mono",
+          monospace;
+        letter-spacing: 0.1em;
+        color: var(--text-main);
+        transform: translate(-50%, -50%);
+        text-transform: uppercase;
+      }
+
+      .loader {
+        position: fixed;
+        inset: 0;
+        z-index: 200;
+        background: #09090b;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        transition:
+          opacity 0.6s ease,
+          visibility 0.6s ease;
+      }
+
+      .loader.done {
+        opacity: 0;
+        visibility: hidden;
+      }
+      .loader-bar {
+        width: min(260px, 70vw);
+        height: 2px;
+        background: rgba(255, 255, 255, 0.12);
+        overflow: hidden;
+      }
+      .loader-progress {
+        width: 0;
+        height: 100%;
+        background: var(--accent);
+        transition: width 0.7s ease;
+      }
+
+      .mobile-menu {
+        opacity: 0;
+        visibility: hidden;
+        transform: translateY(-10px);
+        transition: 0.35s ease;
+      }
+      .mobile-menu.open {
+        opacity: 1;
+        visibility: visible;
+        transform: translateY(0);
+      }
+
+      .mobile-menu a {
+        transition:
+          color 0.2s ease,
+          transform 0.2s ease;
+      }
+      .mobile-menu a:hover {
+        color: var(--accent);
+        transform: translateX(6px);
+      }
+
+      .reveal-hero > * {
+        opacity: 0;
+        transform: translateY(18px);
+        animation: heroReveal 0.75s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+      }
+      .reveal-hero > *:nth-child(1) {
+        animation-delay: 0.15s;
+      }
+      .reveal-hero > *:nth-child(2) {
+        animation-delay: 0.25s;
+      }
+      .reveal-hero > *:nth-child(3) {
+        animation-delay: 0.35s;
+      }
+      .reveal-hero > *:nth-child(4) {
+        animation-delay: 0.45s;
+      }
+      .reveal-hero > *:nth-child(5) {
+        animation-delay: 0.55s;
+      }
+
+      @keyframes heroReveal {
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+
+      @media (min-width: 768px) {
+        .custom-cursor,
+        .cursor-ring,
+        .cursor-label {
+          display: block;
+        }
+        body {
+          cursor: none;
+        }
+        a,
+        button {
+          cursor: none;
+        }
+      }
+
+      @media (max-width: 767px) {
+        .grid-overlay {
+          opacity: 0.018;
+        }
+        .noise {
+          opacity: 0.018;
+        }
+      }
+
+      @media (prefers-reduced-motion: reduce) {
+        *,
+        *::before,
+        *::after {
+          scroll-behavior: auto !important;
+          animation-duration: 0.01ms !important;
+          animation-iteration-count: 1 !important;
+          transition-duration: 0.01ms !important;
+        }
+        .custom-cursor,
+        .cursor-ring,
+        .cursor-label {
+          display: none !important;
+        }
+        body {
+          cursor: auto;
+        }
+      }
+    </style>
+  </head>
+
+  <body class="min-h-screen">
+    <div id="loader" class="loader">
+      <div class="text-center">
+        <div class="display-font text-2xl font-bold tracking-[.25em] mb-6">
+          S.Z.N
+        </div>
+        <div class="loader-bar">
+          <div id="loaderProgress" class="loader-progress"></div>
+        </div>
+        <div
+          class="mono-font text-[9px] uppercase tracking-[.25em] text-white/45 mt-3"
+        >
+          Loading experience
+        </div>
+      </div>
+    </div>
+
+    <div id="scrollProgress" class="progress-line"></div>
+    <div class="noise"></div>
+    <div class="grid-overlay"></div>
+
+    <div class="ambient-glow">
+      <div class="floating-blob" style="top: 8%; left: -7%"></div>
+      <div
+        class="floating-blob"
+        style="right: -10%; bottom: 8%; animation-delay: -5s"
+      ></div>
+    </div>
+
+    <div id="cursor" class="custom-cursor"></div>
+    <div id="cursorRing" class="cursor-ring"></div>
+    <div id="cursorLabel" class="cursor-label"></div>
+
+    <!-- NAVBAR -->
+    <header class="fixed top-4 left-0 right-0 z-[90] px-4">
+      <nav
+        class="art-nav rounded-full px-4 sm:px-6 py-3 flex items-center justify-between gap-5 max-w-5xl mx-auto shadow-2xl"
+        data-aos="fade-down"
+      >
+        <a
+          href="#top"
+          class="display-font font-bold text-xs sm:text-sm tracking-[.15em] uppercase flex items-center gap-2 magnetic"
+          data-cursor="GO"
+        >
+          <span
+            class="w-2 h-2 rounded-full bg-[var(--accent)] animate-pulse"
+          ></span>
+          S.Z. NAQVI
+        </a>
+
+        <div
+          id="desktopNav"
+          class="hidden md:flex items-center gap-5 lg:gap-7 text-[10px] font-semibold tracking-[.16em] uppercase text-[var(--text-muted)]"
+        >
+          <a href="#about" data-section-link="about">About</a>
+          <a href="#projects" data-section-link="projects">Work</a>
+          <a href="#experience" data-section-link="experience">Experience</a>
+          <a href="#skills" data-section-link="skills">Skills</a>
+          <a href="#contact" data-section-link="contact">Contact</a>
+        </div>
+
+        <div class="flex items-center gap-2">
+          <button
+            id="themeToggle"
+            class="w-8 h-8 rounded-full flex items-center justify-center bg-[var(--accent)]/10 text-[var(--accent)] hover:scale-110 transition"
+            aria-label="Toggle theme"
+          >
+            <i class="fa-solid fa-moon text-xs" id="themeIcon"></i>
+          </button>
+          <a
+            href="#contact"
+            class="hidden sm:inline-flex bg-[var(--accent)] text-white text-[10px] font-bold px-4 py-2 rounded-full uppercase tracking-widest hover:opacity-90 transition magnetic"
+            data-cursor="TALK"
+            >Let's Talk</a
+          >
+          <button
+            id="menuToggle"
+            class="md:hidden w-8 h-8 rounded-full art-card flex items-center justify-center"
+            aria-label="Open menu"
+            aria-expanded="false"
+          >
+            <i class="fa-solid fa-bars text-xs"></i>
+          </button>
+        </div>
+      </nav>
+
+      <div
+        id="mobileMenu"
+        class="mobile-menu art-nav rounded-3xl max-w-5xl mx-auto mt-3 p-7 shadow-2xl md:hidden"
+      >
+        <div class="flex flex-col gap-5 display-font text-3xl font-bold">
+          <a href="#about">ABOUT</a>
+          <a href="#projects">WORK</a>
+          <a href="#experience">EXPERIENCE</a>
+          <a href="#skills">SKILLS</a>
+          <a href="#contact">CONTACT</a>
+        </div>
+        <div
+          class="mt-7 pt-5 border-t border-[var(--border-color)] flex flex-wrap gap-4 text-xs uppercase tracking-widest text-[var(--text-muted)]"
+        >
+          <a href="#" data-social="github">GitHub</a>
+          <a href="#" data-social="linkedin">LinkedIn</a>
+          <a href="mailto:contact@siratezaheranaqvi.com">Email</a>
+          <a href="#contact">Resume</a>
+        </div>
+      </div>
+    </header>
+
+    <main id="top">
+      <!-- MARQUEE -->
+      <div
+        class="pt-24 pb-4 overflow-hidden border-b border-[var(--border-color)] bg-[var(--surface-color)]"
+      >
+        <div
+          class="marquee-track whitespace-nowrap text-[10px] display-font font-bold uppercase tracking-[.2em] text-[var(--text-muted)]"
+        >
+          <div class="flex items-center">
+            <span class="mx-5">Software Engineering</span
+            ><span class="text-[var(--accent)]">•</span>
+            <span class="mx-5">Python Programming</span
+            ><span class="text-[var(--accent)]">•</span>
+            <span class="mx-5">Web Development</span
+            ><span class="text-[var(--accent)]">•</span>
+            <span class="mx-5">Cybersecurity</span
+            ><span class="text-[var(--accent)]">•</span>
+            <span class="mx-5">Creative Technology</span
+            ><span class="text-[var(--accent)]">•</span>
+          </div>
+          <div class="flex items-center">
+            <span class="mx-5">Software Engineering</span
+            ><span class="text-[var(--accent)]">•</span>
+            <span class="mx-5">Python Programming</span
+            ><span class="text-[var(--accent)]">•</span>
+            <span class="mx-5">Web Development</span
+            ><span class="text-[var(--accent)]">•</span>
+            <span class="mx-5">Cybersecurity</span
+            ><span class="text-[var(--accent)]">•</span>
+            <span class="mx-5">Creative Technology</span
+            ><span class="text-[var(--accent)]">•</span>
+          </div>
+        </div>
+      </div>
+      <!-- HERO -->
+      <section
+        class="min-h-[88vh] flex items-center py-20 px-6 max-w-7xl mx-auto relative overflow-hidden"
+      >
+        <div
+          class="grid grid-cols-1 lg:grid-cols-12 gap-10 w-full items-center"
+        >
+          <div class="lg:col-span-8 reveal-hero">
+            <div>
+              <div
+                class="inline-flex items-center gap-2 px-3 py-1.5 rounded-full border border-emerald-400/20 bg-emerald-400/5 text-emerald-400 text-[9px] mono-font uppercase tracking-[.14em] mb-5"
+              >
+                <span
+                  class="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse"
+                ></span>
+                Available for opportunities
+              </div>
+            </div>
+
+            <div>
+              <span
+                class="text-[10px] uppercase font-bold tracking-[.24em] text-[var(--accent)] mb-5 block display-font"
+              >
+                [ Portfolio / Creative Engineering ]
+              </span>
+            </div>
+
+            <div>
+              <h1
+                class="display-font hero-word text-6xl sm:text-8xl lg:text-[8.6rem] font-bold"
+              >
+                SIRATE<br />
+                <span class="text-[var(--accent)]">ZAHERA</span><br />
+                NAQVI<span class="text-[var(--accent)]">.</span>
+              </h1>
+            </div>
+
+            <div>
+              <p
+                class="text-[var(--text-muted)] text-sm sm:text-lg max-w-2xl leading-relaxed mt-7"
+              >
+                An ambitious software engineering student bridging creative web
+                design, robust Python architecture, and practical cybersecurity
+                internship training.
+              </p>
+            </div>
+
+            <div class="flex flex-wrap items-center gap-3 mt-8">
+              <a
+                href="#projects"
+                class="magnetic px-7 py-3.5 rounded-xl bg-[var(--accent)] text-white font-bold text-[10px] uppercase tracking-[.18em] shadow-xl shadow-[var(--accent)]/20 hover:opacity-90 transition"
+                data-cursor="VIEW"
+              >
+                View Highlights
+                <i
+                  class="fa-solid fa-arrow-right ml-2 transition-transform"
+                ></i>
+              </a>
+              <a
+                href="#experience"
+                class="magnetic px-7 py-3.5 rounded-xl art-card font-bold text-[10px] uppercase tracking-[.18em] hover:border-[var(--accent)] transition"
+                data-cursor="OPEN"
+              >
+                View Experience
+              </a>
+              <a
+                href="#"
+                id="resumeBtn"
+                class="magnetic px-7 py-3.5 rounded-xl art-card font-bold text-[10px] uppercase tracking-[.18em] hover:border-[var(--accent)] transition"
+                data-cursor="PDF"
+              >
+                Resume <i class="fa-solid fa-arrow-down ml-2"></i>
+              </a>
+            </div>
+
+            <div
+              class="flex items-center gap-5 mt-8 text-[9px] mono-font uppercase tracking-[.15em] text-[var(--text-muted)]"
+            >
+              <span>India / Global</span>
+              <span class="w-1 h-1 rounded-full bg-[var(--accent)]"></span>
+              <span>Software + Security</span>
+            </div>
+          </div>
+
+          <div
+            class="lg:col-span-4"
+            data-aos="fade-left"
+            data-aos-duration="1000"
+          >
+            <div
+              id="heroVisual"
+              class="relative max-w-md mx-auto lg:ml-auto"
+              data-parallax
+            >
+              <div
+                class="absolute -inset-8 rounded-full bg-[var(--accent)]/5 blur-3xl"
+              ></div>
+
+              <div
+                class="art-card rounded-[2rem] p-3 relative overflow-hidden group"
+              >
+                <div
+                  class="h-[440px] sm:h-[500px] rounded-[1.5rem] overflow-hidden relative"
+                >
+                  <img
+                    src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&q=85&w=900"
+                    alt="Profile portrait placeholder for Sirate Zahera Naqvi"
+                    class="w-full h-full object-cover grayscale group-hover:grayscale-0 transition duration-700"
+                    loading="eager"
+                  />
+                  <div
+                    class="absolute inset-0 bg-gradient-to-t from-black/85 via-transparent to-transparent"
+                  ></div>
+
+                  <div class="absolute bottom-5 left-5 right-5">
+                    <p
+                      class="text-[9px] mono-font text-[var(--accent)] uppercase tracking-[.18em]"
+                    >
+                      Software / Security
+                    </p>
+                    <p class="display-font text-xl font-bold text-white">
+                      Engineer in progress.
+                    </p>
+                  </div>
+
+                  <div
+                    class="absolute top-4 right-4 w-14 h-14 rounded-full border border-white/20 flex items-center justify-center"
+                  >
+                    <div class="hero-orbit absolute inset-0">
+                      <span
+                        class="absolute -top-1 left-1/2 -translate-x-1/2 w-1.5 h-1.5 bg-[var(--accent)] rounded-full"
+                      ></span>
+                    </div>
+                    <i class="fa-solid fa-code text-white/80 text-xs"></i>
+                  </div>
+                </div>
+              </div>
+
+              <div
+                class="float-chip absolute -left-5 top-16 art-card rounded-xl px-3 py-2 shadow-xl"
+              >
+                <span class="text-[9px] mono-font text-[var(--accent)]"
+                  >01</span
+                >
+                <p class="text-[10px] font-semibold">PYTHON</p>
+              </div>
+
+              <div
+                class="float-chip absolute -right-5 top-1/3 art-card rounded-xl px-3 py-2 shadow-xl"
+              >
+                <span class="text-[9px] mono-font text-[var(--accent)]"
+                  >02</span
+                >
+                <p class="text-[10px] font-semibold">SECURITY</p>
+              </div>
+
+              <div
+                class="float-chip absolute -left-2 bottom-8 art-card rounded-xl px-3 py-2 shadow-xl"
+              >
+                <span class="text-[9px] mono-font text-[var(--accent)]"
+                  >03</span
+                >
+                <p class="text-[10px] font-semibold">WEB DEV</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <a
+          href="#about"
+          class="absolute bottom-6 left-1/2 -translate-x-1/2 text-[9px] mono-font uppercase tracking-[.2em] text-[var(--text-muted)] flex flex-col items-center gap-2"
+        >
+          Scroll to explore
+          <i class="fa-solid fa-arrow-down animate-bounce"></i>
+        </a>
+      </section>
+
+      <!-- BENTO -->
+      <section class="py-20 px-6 max-w-7xl mx-auto">
+        <div class="mb-10" data-aos="fade-up">
+          <span
+            class="text-[10px] uppercase font-bold tracking-[.22em] text-[var(--accent)] mb-2 block display-font"
+            >// 00. CAPABILITY MAP</span
+          >
+          <h2 class="display-font text-3xl sm:text-5xl font-bold">
+            Built around curiosity.
+          </h2>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-12 gap-4">
+          <article
+            class="art-card rounded-3xl p-7 md:col-span-7 min-h-[260px] relative overflow-hidden"
+            data-aos="fade-up"
+          >
+            <div
+              class="absolute right-0 top-0 text-[8rem] font-bold display-font opacity-[.035]"
+            >
+              01
+            </div>
+            <i class="fa-solid fa-code text-2xl text-[var(--accent)]"></i>
+            <h3 class="display-font text-2xl font-bold mt-8">
+              Software Engineering
+            </h3>
+            <p
+              class="text-sm text-[var(--text-muted)] max-w-md mt-3 leading-relaxed"
+            >
+              Building structured, maintainable software experiences with a
+              strong focus on problem solving and clean implementation.
+            </p>
+            <span
+              class="absolute bottom-7 left-7 mono-font text-[9px] uppercase tracking-[.16em] text-[var(--accent)]"
+              >Structure / Logic / Systems</span
+            >
+          </article>
+
+          <article
+            class="art-card rounded-3xl p-7 md:col-span-5 min-h-[260px] relative overflow-hidden"
+            data-aos="fade-up"
+            data-aos-delay="80"
+          >
+            <div
+              class="absolute -right-8 -bottom-12 w-44 h-44 rounded-full bg-[var(--accent)]/10 blur-2xl"
+            ></div>
+            <i class="devicon-python-plain text-3xl text-[var(--accent)]"></i>
+            <h3 class="display-font text-2xl font-bold mt-8">Python</h3>
+            <p class="text-sm text-[var(--text-muted)] mt-3 leading-relaxed">
+              Automation, scripts, data manipulation and security-oriented
+              utilities.
+            </p>
+          </article>
+
+          <article
+            class="art-card rounded-3xl p-7 md:col-span-5 min-h-[230px]"
+            data-aos="fade-up"
+            data-aos-delay="120"
+          >
+            <i
+              class="fa-solid fa-shield-halved text-2xl text-[var(--accent)]"
+            ></i>
+            <h3 class="display-font text-2xl font-bold mt-8">Cybersecurity</h3>
+            <p class="text-sm text-[var(--text-muted)] mt-3 leading-relaxed">
+              Practical exposure to vulnerability assessment, network
+              reconnaissance and secure coding fundamentals.
+            </p>
+          </article>
+
+          <article
+            class="art-card rounded-3xl p-7 md:col-span-7 min-h-[230px] relative overflow-hidden"
+            data-aos="fade-up"
+            data-aos-delay="160"
+          >
+            <div
+              class="absolute right-6 top-6 flex gap-2 text-xl text-[var(--text-muted)]"
+            >
+              <i class="devicon-html5-plain"></i>
+              <i class="devicon-css3-plain"></i>
+              <i class="devicon-javascript-plain"></i>
+            </div>
+            <p
+              class="mono-font text-[9px] uppercase tracking-[.18em] text-[var(--accent)]"
+            >
+              Currently building
+            </p>
+            <h3 class="display-font text-3xl font-bold mt-6">
+              Web experiences with personality.
+            </h3>
+            <p class="text-sm text-[var(--text-muted)] mt-3 max-w-lg">
+              Responsive interfaces, interactive components, editorial layouts
+              and thoughtful motion.
+            </p>
+          </article>
+        </div>
+      </section>
+
+      <!-- ABOUT -->
+      <section id="about" class="py-24 px-6 max-w-7xl mx-auto">
+        <div
+          class="art-card rounded-[2rem] p-8 sm:p-14 relative overflow-hidden"
+          data-aos="fade-up"
+        >
+          <div
+            class="absolute -right-24 -top-24 text-[13rem] display-font font-bold opacity-[.025]"
+          >
+            ABOUT
+          </div>
+          <div
+            class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center relative"
+          >
+            <div>
+              <span
+                class="text-[10px] uppercase font-bold tracking-[.22em] text-[var(--accent)] mb-3 block display-font"
+                >// 01. PHILOSOPHY</span
+              >
+              <h2
+                class="display-font text-4xl sm:text-6xl font-bold tracking-tight"
+              >
+                Designing code with structure & security.
+              </h2>
+              <p
+                class="text-[var(--text-muted)] text-sm sm:text-base leading-relaxed mt-7 max-w-xl"
+              >
+                I believe software engineering goes beyond syntax—it's about
+                creating resilient, maintainable digital experiences. My studies
+                focus on mastering Python backends, clean user interface design,
+                and practical threat awareness.
+              </p>
+            </div>
+
+            <div class="grid grid-cols-2 gap-4">
+              <div class="art-card p-6 rounded-2xl">
+                <i class="fa-solid fa-code text-2xl text-[var(--accent)]"></i>
+                <h3 class="display-font font-bold mt-5">Development</h3>
+                <p class="text-xs text-[var(--text-muted)] mt-2">
+                  Python & Web
+                </p>
+              </div>
+              <div class="art-card p-6 rounded-2xl">
+                <i
+                  class="fa-solid fa-shield-halved text-2xl text-[var(--accent)]"
+                ></i>
+                <h3 class="display-font font-bold mt-5">Security</h3>
+                <p class="text-xs text-[var(--text-muted)] mt-2">
+                  Internship Experience
+                </p>
+              </div>
+              <div class="art-card p-6 rounded-2xl col-span-2">
+                <p
+                  class="mono-font text-[9px] uppercase tracking-[.16em] text-[var(--accent)]"
+                >
+                  Principle
+                </p>
+                <p class="display-font text-xl font-semibold mt-3">
+                  "Build with curiosity. Review with discipline. Improve
+                  continuously."
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- PROJECTS -->
+      <section id="projects" class="py-24 px-6 max-w-7xl mx-auto">
+        <div
+          class="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-10"
+          data-aos="fade-up"
+        >
+          <div>
+            <span
+              class="text-[10px] uppercase font-bold tracking-[.22em] text-[var(--accent)] mb-2 block display-font"
+              >// 02. SELECTED WORK</span
+            >
+            <h2 class="display-font text-4xl sm:text-6xl font-bold">
+              Things I've built.
+            </h2>
+          </div>
+          <div class="flex flex-wrap gap-2">
+            <button
+              class="filter-btn active px-4 py-2 rounded-full border border-[var(--border-color)] text-[9px] mono-font uppercase tracking-widest transition"
+              data-filter="all"
+            >
+              All
+            </button>
+            <button
+              class="filter-btn px-4 py-2 rounded-full border border-[var(--border-color)] text-[9px] mono-font uppercase tracking-widest transition"
+              data-filter="web"
+            >
+              Web
+            </button>
+            <button
+              class="filter-btn px-4 py-2 rounded-full border border-[var(--border-color)] text-[9px] mono-font uppercase tracking-widest transition"
+              data-filter="python"
+            >
+              Python
+            </button>
+            <button
+              class="filter-btn px-4 py-2 rounded-full border border-[var(--border-color)] text-[9px] mono-font uppercase tracking-widest transition"
+              data-filter="security"
+            >
+              Security
+            </button>
+          </div>
+        </div>
+
+        <div id="projectGrid" class="grid grid-cols-1 lg:grid-cols-2 gap-5">
+          <article
+            class="project-card project-item art-card rounded-[2rem] overflow-hidden group"
+            data-category="python security"
+            data-project="scanner"
+            data-aos="fade-up"
+          >
+            <div
+              class="h-64 sm:h-80 relative overflow-hidden project-visual bg-[#101014]"
+            >
+              <div
+                class="absolute inset-0 bg-[radial-gradient(circle_at_70%_25%,rgba(244,63,94,.16),transparent_35%)]"
+              ></div>
+              <div
+                class="absolute inset-0 p-7 mono-font text-[10px] text-white/55"
+              >
+                <div class="flex gap-2 mb-8">
+                  <span class="w-2 h-2 rounded-full bg-red-400"></span
+                  ><span class="w-2 h-2 rounded-full bg-yellow-400"></span
+                  ><span class="w-2 h-2 rounded-full bg-green-400"></span>
+                </div>
+                <p>
+                  <span class="text-[var(--accent)]">$</span> python scanner.py
+                  --target 192.168.1.1
+                </p>
+                <p class="mt-3 text-emerald-300">Scanning ports...</p>
+                <p class="mt-2">22/tcp&nbsp;&nbsp; OPEN</p>
+                <p>80/tcp&nbsp;&nbsp; OPEN</p>
+                <p>443/tcp&nbsp; OPEN</p>
+                <p class="mt-3 text-[var(--accent)]">Scan complete.</p>
+                <span class="blink">█</span>
+              </div>
+              <div
+                class="absolute bottom-5 left-6 right-6 flex justify-between items-end"
+              >
+                <span
+                  class="mono-font text-[9px] text-[var(--accent)] uppercase tracking-widest"
+                  >01 / Python · Security</span
+                >
+                <button
+                  class="view-project w-10 h-10 rounded-full bg-white/10 backdrop-blur flex items-center justify-center text-white hover:bg-[var(--accent)] transition"
+                  data-project="scanner"
+                  data-cursor="OPEN"
+                >
+                  <i class="fa-solid fa-arrow-up-right-from-square text-xs"></i>
+                </button>
+              </div>
+            </div>
+            <div class="p-7">
+              <h3 class="display-font text-2xl font-bold">
+                Port & Vulnerability Scanner
+              </h3>
+              <p class="text-sm text-[var(--text-muted)] leading-relaxed mt-3">
+                A utility script built in Python to inspect network ports,
+                analyze connection states, and apply concepts learned from my
+                cybersecurity internship.
+              </p>
+              <div class="flex flex-wrap gap-2 mt-5">
+                <span
+                  class="px-3 py-1 rounded-lg bg-[var(--surface-2)] text-[9px] mono-font"
+                  >PYTHON</span
+                >
+                <span
+                  class="px-3 py-1 rounded-lg bg-[var(--surface-2)] text-[9px] mono-font"
+                  >NETWORKING</span
+                >
+                <span
+                  class="px-3 py-1 rounded-lg bg-[var(--surface-2)] text-[9px] mono-font"
+                  >SECURITY</span
+                >
+              </div>
+              <button
+                class="open-case mt-6 text-[10px] font-bold uppercase tracking-widest text-[var(--accent)]"
+                data-project="scanner"
+                data-cursor="VIEW"
+              >
+                View case study <i class="fa-solid fa-arrow-right ml-1"></i>
+              </button>
+            </div>
+          </article>
+
+          <article
+            class="project-card project-item art-card rounded-[2rem] overflow-hidden group"
+            data-category="web"
+            data-project="portfolio"
+            data-aos="fade-up"
+            data-aos-delay="80"
+          >
+            <div
+              class="h-64 sm:h-80 relative overflow-hidden project-visual bg-[#111116]"
+            >
+              <div class="absolute inset-0 p-5">
+                <div
+                  class="h-full rounded-xl border border-white/10 bg-black/20 p-5"
+                >
+                  <div class="flex gap-1.5 mb-6">
+                    <span class="w-1.5 h-1.5 rounded-full bg-white/25"></span
+                    ><span class="w-1.5 h-1.5 rounded-full bg-white/25"></span
+                    ><span class="w-1.5 h-1.5 rounded-full bg-white/25"></span>
+                  </div>
+                  <div
+                    class="h-3 w-1/3 bg-[var(--accent)]/50 rounded mb-4"
+                  ></div>
+                  <div class="h-10 w-4/5 bg-white/10 rounded mb-2"></div>
+                  <div class="h-10 w-3/5 bg-white/10 rounded"></div>
+                  <div class="grid grid-cols-3 gap-2 mt-8">
+                    <div class="h-20 rounded bg-white/5"></div>
+                    <div class="h-20 rounded bg-white/5"></div>
+                    <div class="h-20 rounded bg-white/5"></div>
+                  </div>
+                </div>
+              </div>
+              <div
+                class="absolute bottom-5 left-6 right-6 flex justify-between items-end"
+              >
+                <span
+                  class="mono-font text-[9px] text-[var(--accent)] uppercase tracking-widest"
+                  >02 / Web · UI</span
+                >
+                <button
+                  class="view-project w-10 h-10 rounded-full bg-white/10 backdrop-blur flex items-center justify-center text-white hover:bg-[var(--accent)] transition"
+                  data-project="portfolio"
+                  data-cursor="OPEN"
+                >
+                  <i class="fa-solid fa-arrow-up-right-from-square text-xs"></i>
+                </button>
+              </div>
+            </div>
+            <div class="p-7">
+              <h3 class="display-font text-2xl font-bold">
+                Interactive Designer Portfolio
+              </h3>
+              <p class="text-sm text-[var(--text-muted)] leading-relaxed mt-3">
+                A modern responsive web portfolio featuring editorial styling,
+                ambient lighting, dynamic themes and micro-interactions.
+              </p>
+              <div class="flex flex-wrap gap-2 mt-5">
+                <span
+                  class="px-3 py-1 rounded-lg bg-[var(--surface-2)] text-[9px] mono-font"
+                  >HTML</span
+                >
+                <span
+                  class="px-3 py-1 rounded-lg bg-[var(--surface-2)] text-[9px] mono-font"
+                  >CSS</span
+                >
+                <span
+                  class="px-3 py-1 rounded-lg bg-[var(--surface-2)] text-[9px] mono-font"
+                  >JAVASCRIPT</span
+                >
+              </div>
+              <button
+                class="open-case mt-6 text-[10px] font-bold uppercase tracking-widest text-[var(--accent)]"
+                data-project="portfolio"
+                data-cursor="VIEW"
+              >
+                View case study <i class="fa-solid fa-arrow-right ml-1"></i>
+              </button>
+            </div>
+          </article>
+
+          <article
+            class="project-card project-item art-card rounded-[2rem] overflow-hidden group lg:col-span-2"
+            data-category="security web"
+            data-project="threat"
+            data-aos="fade-up"
+          >
+            <div class="grid grid-cols-1 lg:grid-cols-2">
+              <div
+                class="h-64 sm:h-80 lg:h-full min-h-[300px] relative overflow-hidden project-visual bg-[#101014]"
+              >
+                <div
+                  class="absolute inset-0 opacity-60"
+                  style="
+                    background:
+                      radial-gradient(
+                        circle at 50% 50%,
+                        rgba(244, 63, 94, 0.15),
+                        transparent 35%
+                      ),
+                      linear-gradient(
+                        135deg,
+                        transparent 49%,
+                        rgba(255, 255, 255, 0.04) 50%,
+                        transparent 51%
+                      );
+                    background-size:
+                      auto,
+                      34px 34px;
+                  "
+                ></div>
+                <div class="absolute inset-0 flex items-center justify-center">
+                  <div
+                    class="w-44 h-44 rounded-full border border-[var(--accent)]/25 flex items-center justify-center"
+                  >
+                    <div
+                      class="w-28 h-28 rounded-full border border-[var(--accent)]/30 flex items-center justify-center"
+                    >
+                      <i
+                        class="fa-solid fa-shield-halved text-4xl text-[var(--accent)]"
+                      ></i>
+                    </div>
+                  </div>
+                </div>
+                <span
+                  class="absolute left-6 bottom-5 mono-font text-[9px] text-[var(--accent)] tracking-widest"
+                  >03 / SECURITY · DEFENSE</span
+                >
+              </div>
+              <div class="p-7 sm:p-9 flex flex-col justify-center">
+                <h3 class="display-font text-3xl sm:text-4xl font-bold">
+                  Cyber Threat Awareness Hub
+                </h3>
+                <p
+                  class="text-sm text-[var(--text-muted)] leading-relaxed mt-4 max-w-xl"
+                >
+                  Educational insights, secure coding checklists, and basic
+                  defense strategies curated from practical hands-on internship
+                  experience.
+                </p>
+                <div class="flex flex-wrap gap-2 mt-6">
+                  <span
+                    class="px-3 py-1 rounded-lg bg-[var(--surface-2)] text-[9px] mono-font"
+                    >SECURITY</span
+                  >
+                  <span
+                    class="px-3 py-1 rounded-lg bg-[var(--surface-2)] text-[9px] mono-font"
+                    >DEFENSE</span
+                  >
+                  <span
+                    class="px-3 py-1 rounded-lg bg-[var(--surface-2)] text-[9px] mono-font"
+                    >WEB</span
+                  >
+                </div>
+                <button
+                  class="open-case mt-7 text-left text-[10px] font-bold uppercase tracking-widest text-[var(--accent)]"
+                  data-project="threat"
+                  data-cursor="VIEW"
+                >
+                  View case study <i class="fa-solid fa-arrow-right ml-1"></i>
+                </button>
+              </div>
+            </div>
+          </article>
+        </div>
+      </section>
+
+      <!-- JOURNEY -->
+      <section class="py-24 px-6 max-w-5xl mx-auto">
+        <div class="mb-12" data-aos="fade-up">
+          <span
+            class="text-[10px] uppercase font-bold tracking-[.22em] text-[var(--accent)] mb-2 block display-font"
+            >// 02.5. JOURNEY</span
+          >
+          <h2 class="display-font text-4xl sm:text-6xl font-bold">
+            Learning in public.
+          </h2>
+        </div>
+
+        <div class="relative">
+          <div
+            class="absolute left-3 md:left-1/2 top-0 bottom-0 w-px timeline-line"
+          ></div>
+
+          <div class="relative grid md:grid-cols-2 gap-7 mb-8">
+            <div class="md:text-right md:pr-10 pl-10 md:pl-0">
+              <span class="mono-font text-[10px] text-[var(--accent)]"
+                >EARLIER</span
+              >
+              <h3 class="display-font text-2xl font-bold mt-2">
+                Web Development
+              </h3>
+              <p class="text-sm text-[var(--text-muted)] mt-2">
+                Building responsive interfaces and exploring creative frontend
+                design.
+              </p>
+            </div>
+            <div class="hidden md:block"></div>
+            <span
+              class="absolute left-0 md:left-1/2 top-1.5 w-7 h-7 rounded-full bg-[var(--surface-color)] border border-[var(--accent)] -translate-x-[13px] flex items-center justify-center"
+              ><span class="w-2 h-2 rounded-full bg-[var(--accent)]"></span
+            ></span>
+          </div>
+
+          <div class="relative grid md:grid-cols-2 gap-7 mb-8">
+            <div class="hidden md:block"></div>
+            <div class="pl-10 md:pl-10">
+              <span class="mono-font text-[10px] text-[var(--accent)]"
+                >RECENT</span
+              >
+              <h3 class="display-font text-2xl font-bold mt-2">
+                Python & Software
+              </h3>
+              <p class="text-sm text-[var(--text-muted)] mt-2">
+                Strengthening programming fundamentals, automation logic and
+                structured problem solving.
+              </p>
+            </div>
+            <span
+              class="absolute left-0 md:left-1/2 top-1.5 w-7 h-7 rounded-full bg-[var(--surface-color)] border border-[var(--accent)] -translate-x-[13px] flex items-center justify-center"
+              ><span class="w-2 h-2 rounded-full bg-[var(--accent)]"></span
+            ></span>
+          </div>
+
+          <div class="relative grid md:grid-cols-2 gap-7">
+            <div class="md:text-right md:pr-10 pl-10 md:pl-0">
+              <span class="mono-font text-[10px] text-[var(--accent)]"
+                >CURRENT</span
+              >
+              <h3 class="display-font text-2xl font-bold mt-2">
+                Cybersecurity
+              </h3>
+              <p class="text-sm text-[var(--text-muted)] mt-2">
+                Applying practical security concepts through hands-on internship
+                training and projects.
+              </p>
+            </div>
+            <div class="hidden md:block"></div>
+            <span
+              class="absolute left-0 md:left-1/2 top-1.5 w-7 h-7 rounded-full bg-[var(--surface-color)] border border-[var(--accent)] -translate-x-[13px] flex items-center justify-center"
+              ><span class="w-2 h-2 rounded-full bg-[var(--accent)]"></span
+            ></span>
+          </div>
+        </div>
+      </section>
+
+      <!-- EXPERIENCE -->
+      <section id="experience" class="py-24 px-6 max-w-7xl mx-auto">
+        <div class="mb-12" data-aos="fade-up">
+          <span
+            class="text-[10px] uppercase font-bold tracking-[.22em] text-[var(--accent)] mb-2 block display-font"
+            >// 03. EXPERIENCE & TRAINING</span
+          >
+          <h2 class="display-font text-4xl sm:text-6xl font-bold">
+            Practical training.
+          </h2>
+        </div>
+
+        <div
+          class="art-card rounded-[2rem] p-8 sm:p-10 relative overflow-hidden"
+          data-aos="fade-up"
+        >
+          <div
+            class="absolute right-0 top-0 text-[12rem] display-font font-bold opacity-[.025]"
+          >
+            SEC
+          </div>
+
+          <div
+            class="flex flex-col sm:flex-row sm:items-center justify-between gap-5 mb-7 relative"
+          >
+            <div class="flex items-center gap-4">
+              <div
+                class="w-14 h-14 rounded-2xl bg-[var(--accent)]/10 flex items-center justify-center text-[var(--accent)] text-2xl"
+              >
+                <i class="fa-solid fa-shield-cat"></i>
+              </div>
+              <div>
+                <h3 class="display-font text-2xl font-bold">
+                  Cybersecurity Intern
+                </h3>
+                <p class="text-[10px] text-[var(--accent)] mono-font mt-1">
+                  1-MONTH HANDS-ON TRAINING PROGRAM
+                </p>
+              </div>
+            </div>
+            <span
+              class="text-[9px] mono-font px-3.5 py-1.5 rounded-full bg-[var(--accent)]/10 text-[var(--accent)] border border-[var(--accent)]/20 w-fit"
+              >COMPLETED</span
+            >
+          </div>
+
+          <p
+            class="text-[var(--text-muted)] text-sm sm:text-base leading-relaxed max-w-4xl relative"
+          >
+            Completed an intensive 1-month cybersecurity internship focused on
+            practical vulnerability scanning, network reconnaissance principles,
+            basic threat analysis, and secure coding fundamentals to safeguard
+            software applications against common attack vectors.
+          </p>
+
+          <div class="grid grid-cols-2 sm:grid-cols-4 gap-3 mt-8 relative">
+            <div
+              class="p-4 rounded-xl bg-[var(--surface-2)] border border-[var(--border-color)]"
+            >
+              <p class="mono-font text-[9px] text-[var(--accent)]">01</p>
+              <p class="text-xs font-semibold mt-2">Vulnerability Assessment</p>
+            </div>
+            <div
+              class="p-4 rounded-xl bg-[var(--surface-2)] border border-[var(--border-color)]"
+            >
+              <p class="mono-font text-[9px] text-[var(--accent)]">02</p>
+              <p class="text-xs font-semibold mt-2">Network Security</p>
+            </div>
+            <div
+              class="p-4 rounded-xl bg-[var(--surface-2)] border border-[var(--border-color)]"
+            >
+              <p class="mono-font text-[9px] text-[var(--accent)]">03</p>
+              <p class="text-xs font-semibold mt-2">Secure Coding</p>
+            </div>
+            <div
+              class="p-4 rounded-xl bg-[var(--surface-2)] border border-[var(--border-color)]"
+            >
+              <p class="mono-font text-[9px] text-[var(--accent)]">04</p>
+              <p class="text-xs font-semibold mt-2">Threat Analysis</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- SKILLS -->
+      <section id="skills" class="py-24 px-6 max-w-7xl mx-auto">
+        <div class="mb-12" data-aos="fade-up">
+          <span
+            class="text-[10px] uppercase font-bold tracking-[.22em] text-[var(--accent)] mb-2 block display-font"
+            >// 04. TECHNOLOGY WALL</span
+          >
+          <h2 class="display-font text-4xl sm:text-6xl font-bold">
+            Skills & stack.
+          </h2>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+          <div class="art-card rounded-3xl p-6" data-aos="fade-up">
+            <p
+              class="mono-font text-[9px] text-[var(--accent)] uppercase tracking-widest"
+            >
+              Languages
+            </p>
+            <div class="flex flex-wrap gap-2 mt-5">
+              <span class="skill-chip"
+                ><i class="devicon-python-plain"></i> Python</span
+              >
+              <span class="skill-chip"
+                ><i class="devicon-javascript-plain"></i> JavaScript</span
+              >
+              <span class="skill-chip"
+                ><i class="devicon-html5-plain"></i> HTML</span
+              >
+              <span class="skill-chip"
+                ><i class="devicon-css3-plain"></i> CSS</span
+              >
+            </div>
+          </div>
+
+          <div
+            class="art-card rounded-3xl p-6"
+            data-aos="fade-up"
+            data-aos-delay="70"
+          >
+            <p
+              class="mono-font text-[9px] text-[var(--accent)] uppercase tracking-widest"
+            >
+              Frontend
+            </p>
+            <div class="flex flex-wrap gap-2 mt-5">
+              <span class="skill-chip"
+                ><i class="devicon-react-original"></i> React</span
+              >
+              <span class="skill-chip"
+                ><i class="devicon-tailwindcss-plain"></i> Tailwind</span
+              >
+              <span class="skill-chip"
+                ><i class="devicon-javascript-plain"></i> UI</span
+              >
+            </div>
+          </div>
+
+          <div
+            class="art-card rounded-3xl p-6"
+            data-aos="fade-up"
+            data-aos-delay="140"
+          >
+            <p
+              class="mono-font text-[9px] text-[var(--accent)] uppercase tracking-widest"
+            >
+              Backend / Data
+            </p>
+            <div class="flex flex-wrap gap-2 mt-5">
+              <span class="skill-chip"
+                ><i class="devicon-nodejs-plain"></i> Node</span
+              >
+              <span class="skill-chip"
+                ><i class="devicon-express-original"></i> Express</span
+              >
+              <span class="skill-chip"
+                ><i class="devicon-mongodb-plain"></i> MongoDB</span
+              >
+              <span class="skill-chip"
+                ><i class="fa-solid fa-database"></i> SQLite</span
+              >
+            </div>
+          </div>
+
+          <div
+            class="art-card rounded-3xl p-6"
+            data-aos="fade-up"
+            data-aos-delay="210"
+          >
+            <p
+              class="mono-font text-[9px] text-[var(--accent)] uppercase tracking-widest"
+            >
+              Security / Tools
+            </p>
+            <div class="flex flex-wrap gap-2 mt-5">
+              <span class="skill-chip"
+                ><i class="fa-solid fa-shield-halved"></i> Security</span
+              >
+              <span class="skill-chip"
+                ><i class="fa-solid fa-network-wired"></i> Networking</span
+              >
+              <span class="skill-chip"
+                ><i class="devicon-git-plain"></i> Git</span
+              >
+              <span class="skill-chip"
+                ><i class="devicon-github-original"></i> GitHub</span
+              >
+            </div>
+          </div>
+        </div>
+
+        <style>
+          .skill-chip {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.45rem;
+            padding: 0.55rem 0.7rem;
+            border-radius: 0.7rem;
+            background: var(--surface-2);
+            border: 1px solid var(--border-color);
+            color: var(--text-muted);
+            font-size: 0.72rem;
+            transition: 0.25s ease;
+          }
+          .skill-chip:hover {
+            color: var(--text-main);
+            border-color: var(--accent);
+            transform: translateY(-2px);
+          }
+          .skill-chip i {
+            color: var(--accent);
+          }
+        </style>
+
+        <div
+          class="mt-5 art-card rounded-3xl p-7 overflow-hidden"
+          data-aos="fade-up"
+        >
+          <div
+            class="flex flex-col md:flex-row md:items-center justify-between gap-4"
+          >
+            <div>
+              <p
+                class="mono-font text-[9px] text-[var(--accent)] uppercase tracking-widest"
+              >
+                Currently exploring
+              </p>
+              <h3 class="display-font text-2xl font-bold mt-2">
+                Learning without pretending to know everything.
+              </h3>
+            </div>
+            <div class="flex flex-wrap gap-2">
+              <span
+                class="px-3 py-2 rounded-full bg-[var(--surface-2)] text-[9px] mono-font"
+                >BUILDING</span
+              >
+              <span
+                class="px-3 py-2 rounded-full bg-[var(--surface-2)] text-[9px] mono-font"
+                >LEARNING</span
+              >
+              <span
+                class="px-3 py-2 rounded-full bg-[var(--surface-2)] text-[9px] mono-font"
+                >EXPLORING</span
+              >
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- TERMINAL -->
+      <section class="py-24 px-6 max-w-5xl mx-auto">
+        <div class="mb-10" data-aos="fade-up">
+          <span
+            class="text-[10px] uppercase font-bold tracking-[.22em] text-[var(--accent)] mb-2 block display-font"
+            >// 05. COMMAND CENTER</span
+          >
+          <h2 class="display-font text-4xl sm:text-6xl font-bold">
+            A little terminal.
+          </h2>
+        </div>
+
+        <div
+          class="rounded-[2rem] border border-white/10 bg-[#0a0a0d] overflow-hidden shadow-2xl"
+          data-aos="zoom-in"
+        >
+          <div
+            class="px-5 py-4 border-b border-white/10 flex items-center gap-2"
+          >
+            <span class="w-2.5 h-2.5 rounded-full bg-red-400"></span>
+            <span class="w-2.5 h-2.5 rounded-full bg-yellow-400"></span>
+            <span class="w-2.5 h-2.5 rounded-full bg-green-400"></span>
+            <span class="ml-auto text-[9px] mono-font text-white/30"
+              >sirate@portfolio:~</span
+            >
+          </div>
+          <div
+            id="terminal"
+            class="p-6 sm:p-9 mono-font text-xs sm:text-sm leading-8 text-white/65 min-h-[330px]"
+          >
+            <div class="terminal-line">
+              <span class="text-[var(--accent)]">$</span> whoami
+            </div>
+            <div class="terminal-line text-white">sirate-zahera</div>
+            <div class="terminal-line">
+              <span class="text-[var(--accent)]">$</span> role
+            </div>
+            <div class="terminal-line text-white">
+              Software Engineer / Security Explorer
+            </div>
+            <div class="terminal-line">
+              <span class="text-[var(--accent)]">$</span> interests
+            </div>
+            <div class="terminal-line text-white">
+              Web Development · Python · Cybersecurity · UI Engineering
+            </div>
+            <div class="terminal-line">
+              <span class="text-[var(--accent)]">$</span> status
+            </div>
+            <div class="terminal-line text-emerald-300">
+              AVAILABLE_FOR_OPPORTUNITIES
+            </div>
+            <div class="terminal-line">
+              <span class="text-[var(--accent)]">$</span>
+              <span class="blink">█</span>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- BUILDING IN PUBLIC -->
+      <section class="py-24 px-6 max-w-7xl mx-auto">
+        <div
+          class="art-card rounded-[2rem] p-8 sm:p-12 relative overflow-hidden"
+          data-aos="fade-up"
+        >
+          <div
+            class="absolute right-0 top-0 text-[11rem] display-font font-bold opacity-[.025]"
+          >
+            GIT
+          </div>
+          <div class="relative">
+            <span
+              class="text-[10px] uppercase font-bold tracking-[.22em] text-[var(--accent)] mb-2 block display-font"
+              >// 06. BUILDING IN PUBLIC</span
+            >
+            <div
+              class="flex flex-col md:flex-row md:items-end justify-between gap-6"
+            >
+              <div>
+                <h2 class="display-font text-4xl sm:text-6xl font-bold">
+                  Code becomes real here.
+                </h2>
+                <p class="text-sm text-[var(--text-muted)] max-w-xl mt-4">
+                  A clean space for repositories, experiments and future
+                  open-source work. Connect the real GitHub profile when ready.
+                </p>
+              </div>
+              <a
+                href="#"
+                data-social="github"
+                class="magnetic px-6 py-3 rounded-xl bg-[var(--accent)] text-white text-[10px] font-bold uppercase tracking-widest"
+                data-cursor="GITHUB"
+                >GitHub Profile
+                <i class="fa-solid fa-arrow-up-right-from-square ml-2"></i
+              ></a>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mt-9">
+              <div class="art-card rounded-2xl p-5">
+                <p class="mono-font text-[9px] text-[var(--accent)]">
+                  REPOSITORY / 01
+                </p>
+                <h3 class="display-font font-bold mt-5">Security utilities</h3>
+                <p class="text-xs text-[var(--text-muted)] mt-2">
+                  Python experiments and practical security tooling.
+                </p>
+              </div>
+              <div class="art-card rounded-2xl p-5">
+                <p class="mono-font text-[9px] text-[var(--accent)]">
+                  REPOSITORY / 02
+                </p>
+                <h3 class="display-font font-bold mt-5">Web experiences</h3>
+                <p class="text-xs text-[var(--text-muted)] mt-2">
+                  Interfaces focused on interaction, layout and polish.
+                </p>
+              </div>
+              <div class="art-card rounded-2xl p-5">
+                <p class="mono-font text-[9px] text-[var(--accent)]">
+                  REPOSITORY / 03
+                </p>
+                <h3 class="display-font font-bold mt-5">Learning lab</h3>
+                <p class="text-xs text-[var(--text-muted)] mt-2">
+                  Experiments created while learning new technologies.
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- CONTACT -->
+      <section id="contact" class="py-28 px-6 max-w-6xl mx-auto">
+        <div
+          class="art-card rounded-[2.5rem] p-10 sm:p-20 text-center relative overflow-hidden"
+          data-aos="zoom-in"
+        >
+          <div
+            class="absolute inset-0 pointer-events-none"
+            style="
+              background: radial-gradient(
+                circle at 50% 25%,
+                rgba(244, 63, 94, 0.13),
+                transparent 45%
+              );
+            "
+          ></div>
+          <div
+            class="absolute -bottom-12 left-1/2 -translate-x-1/2 text-[12rem] sm:text-[18rem] display-font font-bold opacity-[.025] leading-none"
+          >
+            HELLO
+          </div>
+
+          <div class="relative">
+            <span
+              class="text-[10px] uppercase font-bold tracking-[.22em] text-[var(--accent)] mb-4 block display-font"
+              >// 07. LET'S CONNECT</span
+            >
+            <h2
+              class="display-font text-5xl sm:text-7xl font-bold tracking-tight"
+            >
+              Let's build<br /><span class="text-[var(--accent)]"
+                >something great.</span
+              >
+            </h2>
+            <p
+              class="text-[var(--text-muted)] text-sm sm:text-base max-w-xl mx-auto mt-6 leading-relaxed"
+            >
+              Have a software project, a security collaboration idea, an
+              internship opportunity, or simply want to connect? My inbox is
+              open.
+            </p>
+
+            <div class="flex flex-wrap justify-center gap-3 mt-9">
+              <a
+                href="mailto:contact@siratezaheranaqvi.com"
+                class="magnetic px-7 py-4 rounded-xl bg-[var(--accent)] text-white font-bold text-[10px] uppercase tracking-widest shadow-xl shadow-[var(--accent)]/20"
+                data-cursor="MAIL"
+              >
+                <i class="fa-regular fa-envelope mr-2"></i> Send an Email
+              </a>
+              <a
+                href="#"
+                data-social="github"
+                class="magnetic px-7 py-4 rounded-xl art-card font-bold text-[10px] uppercase tracking-widest"
+                data-cursor="OPEN"
+              >
+                GitHub
+              </a>
+              <a
+                href="#"
+                data-social="linkedin"
+                class="magnetic px-7 py-4 rounded-xl art-card font-bold text-[10px] uppercase tracking-widest"
+                data-cursor="OPEN"
+              >
+                LinkedIn
+              </a>
+            </div>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <!-- SOCIAL DOCK -->
+    <div
+      class="social-dock hidden sm:flex fixed right-5 bottom-5 z-50 art-nav rounded-2xl p-2 gap-1"
+    >
+      <a
+        href="#"
+        data-social="github"
+        class="w-9 h-9 rounded-xl flex items-center justify-center hover:bg-[var(--accent)] hover:text-white transition"
+        aria-label="GitHub"
+        ><i class="fa-brands fa-github text-sm"></i
+      ></a>
+      <a
+        href="#"
+        data-social="linkedin"
+        class="w-9 h-9 rounded-xl flex items-center justify-center hover:bg-[var(--accent)] hover:text-white transition"
+        aria-label="LinkedIn"
+        ><i class="fa-brands fa-linkedin-in text-sm"></i
+      ></a>
+      <a
+        href="mailto:contact@siratezaheranaqvi.com"
+        class="w-9 h-9 rounded-xl flex items-center justify-center hover:bg-[var(--accent)] hover:text-white transition"
+        aria-label="Email"
+        ><i class="fa-regular fa-envelope text-sm"></i
+      ></a>
+    </div>
+
+    <button
+      id="backTop"
+      class="fixed right-5 bottom-20 z-50 w-10 h-10 rounded-full art-nav flex items-center justify-center opacity-0 translate-y-3 pointer-events-none transition-all"
+      aria-label="Back to top"
+      data-cursor="TOP"
+    >
+      <i class="fa-solid fa-arrow-up text-xs"></i>
+    </button>
+
+    <!-- FOOTER -->
+    <footer class="border-t border-[var(--border-color)] py-10 px-6">
+      <div
+        class="max-w-7xl mx-auto flex flex-col md:flex-row items-center justify-between gap-5"
+      >
+        <div>
+          <p class="display-font font-bold">S.Z. NAQVI</p>
+          <p class="text-[10px] text-[var(--text-muted)] mt-1">
+            Software Engineer & Security Explorer
+          </p>
+        </div>
+        <div
+          class="flex flex-wrap items-center justify-center gap-5 text-[9px] mono-font uppercase tracking-widest text-[var(--text-muted)]"
+        >
+          <a href="#about" class="hover:text-[var(--accent)]">About</a>
+          <a href="#projects" class="hover:text-[var(--accent)]">Work</a>
+          <a href="#experience" class="hover:text-[var(--accent)]"
+            >Experience</a
+          >
+          <a href="#skills" class="hover:text-[var(--accent)]">Skills</a>
+          <a href="#contact" class="hover:text-[var(--accent)]">Contact</a>
+        </div>
+        <p class="text-[10px] text-[var(--text-muted)]">
+          © 2026 Sirate Zahera Naqvi. Crafted with curiosity.
+        </p>
+      </div>
+    </footer>
+
+    <!-- PROJECT MODAL -->
+    <div
+      id="projectModal"
+      class="fixed inset-0 z-[120] hidden items-center justify-center p-5"
+    >
+      <div
+        id="modalBackdrop"
+        class="absolute inset-0 bg-black/75 backdrop-blur-md"
+      ></div>
+      <div
+        class="relative w-full max-w-2xl art-card rounded-[2rem] p-7 sm:p-10 max-h-[88vh] overflow-y-auto"
+      >
+        <button
+          id="closeModal"
+          class="absolute right-5 top-5 w-9 h-9 rounded-full art-card flex items-center justify-center hover:bg-[var(--accent)] hover:text-white transition"
+          aria-label="Close"
+        >
+          <i class="fa-solid fa-xmark text-xs"></i>
+        </button>
+        <span
+          id="modalKicker"
+          class="mono-font text-[9px] text-[var(--accent)] uppercase tracking-widest"
+        ></span>
+        <h2
+          id="modalTitle"
+          class="display-font text-3xl sm:text-5xl font-bold mt-4"
+        ></h2>
+        <p
+          id="modalText"
+          class="text-sm text-[var(--text-muted)] leading-relaxed mt-5"
+        ></p>
+        <div class="mt-7">
+          <p
+            class="mono-font text-[9px] text-[var(--accent)] uppercase tracking-widest"
+          >
+            Technologies
+          </p>
+          <div id="modalTags" class="flex flex-wrap gap-2 mt-3"></div>
+        </div>
+        <div class="mt-7 pt-6 border-t border-[var(--border-color)]">
+          <p
+            class="mono-font text-[9px] text-[var(--accent)] uppercase tracking-widest"
+          >
+            Focus
+          </p>
+          <p id="modalFocus" class="text-sm mt-3 leading-relaxed"></p>
+        </div>
+        <div class="mt-8">
+          <a
+            href="#contact"
+            id="modalContact"
+            class="inline-flex px-6 py-3 rounded-xl bg-[var(--accent)] text-white text-[10px] font-bold uppercase tracking-widest"
+            data-cursor="TALK"
+            >Discuss this project <i class="fa-solid fa-arrow-right ml-2"></i
+          ></a>
+        </div>
+      </div>
+    </div>
+
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script>
+      const PROJECTS = {
+        scanner: {
+          kicker: "PYTHON / SECURITY TOOL",
+          title: "Port & Vulnerability Scanner",
+          text: "A utility script built in Python to inspect network ports, analyze connection states, and apply concepts learned from cybersecurity internship training.",
+          tags: ["PYTHON", "NETWORKING", "SECURITY"],
+          focus:
+            "Practical network inspection, connection-state analysis and applying foundational cybersecurity concepts.",
+        },
+        portfolio: {
+          kicker: "WEB DEV / UI DESIGN",
+          title: "Interactive Designer Portfolio",
+          text: "A modern responsive web portfolio featuring editorial styling, ambient lighting, dynamic themes and micro-interactions.",
+          tags: ["HTML", "CSS", "JAVASCRIPT", "UI"],
+          focus:
+            "Responsive interface design, interaction patterns, visual hierarchy and a premium editorial presentation.",
+        },
+        threat: {
+          kicker: "SECURITY / DEFENSE",
+          title: "Cyber Threat Awareness Hub",
+          text: "Educational insights, secure coding checklists and basic defense strategies curated from practical hands-on internship experience.",
+          tags: ["SECURITY", "DEFENSE", "WEB"],
+          focus:
+            "Security awareness, secure coding habits and communicating practical defense fundamentals.",
+        },
+      };
+
+      const $ = (s, root = document) => root.querySelector(s);
+      const $$ = (s, root = document) => [...root.querySelectorAll(s)];
+
+      // Loader
+      window.addEventListener("load", () => {
+        const progress = $("#loaderProgress");
+        progress.style.width = "100%";
+        setTimeout(() => $("#loader").classList.add("done"), 750);
+      });
+
+      // AOS
+      AOS.init({ once: true, duration: 750, offset: 60 });
+
+      // Theme persistence
+      const savedTheme = localStorage.getItem("portfolio-theme");
+      const themeIcon = $("#themeIcon");
+      function applyTheme(mode) {
+        const light = mode === "light";
+        document.body.classList.toggle("light-mode", light);
+        themeIcon.classList.toggle("fa-sun", light);
+        themeIcon.classList.toggle("fa-moon", !light);
+        localStorage.setItem("portfolio-theme", mode);
+      }
+      applyTheme(savedTheme || "dark");
+
+      $("#themeToggle").addEventListener("click", () => {
+        applyTheme(
+          document.body.classList.contains("light-mode") ? "dark" : "light",
+        );
+      });
+
+      // Mobile menu
+      const mobileMenu = $("#mobileMenu");
+      const menuToggle = $("#menuToggle");
+      menuToggle.addEventListener("click", () => {
+        const open = mobileMenu.classList.toggle("open");
+        menuToggle.setAttribute("aria-expanded", String(open));
+        menuToggle.innerHTML = open
+          ? '<i class="fa-solid fa-xmark text-xs"></i>'
+          : '<i class="fa-solid fa-bars text-xs"></i>';
+        document.body.style.overflow = open ? "hidden" : "";
+      });
+      $$("#mobileMenu a").forEach((a) =>
+        a.addEventListener("click", () => {
+          mobileMenu.classList.remove("open");
+          menuToggle.setAttribute("aria-expanded", "false");
+          menuToggle.innerHTML = '<i class="fa-solid fa-bars text-xs"></i>';
+          document.body.style.overflow = "";
+        }),
+      );
+
+      // Scroll progress + back top
+      function updateScrollUI() {
+        const max = document.documentElement.scrollHeight - window.innerHeight;
+        const pct = max > 0 ? (window.scrollY / max) * 100 : 0;
+        $("#scrollProgress").style.width = pct + "%";
+
+        const back = $("#backTop");
+        if (window.scrollY > 500) {
+          back.classList.remove(
+            "opacity-0",
+            "translate-y-3",
+            "pointer-events-none",
+          );
+        } else {
+          back.classList.add(
+            "opacity-0",
+            "translate-y-3",
+            "pointer-events-none",
+          );
+        }
+      }
+      window.addEventListener("scroll", updateScrollUI, { passive: true });
+      updateScrollUI();
+
+      $("#backTop").addEventListener("click", () =>
+        window.scrollTo({ top: 0, behavior: "smooth" }),
+      );
+
+      // Active navigation
+      const sections = [
+        "about",
+        "projects",
+        "experience",
+        "skills",
+        "contact",
+      ].map((id) => document.getElementById(id));
+      const sectionLinks = $$("[data-section-link]");
+      const observer = new IntersectionObserver(
+        (entries) => {
+          entries.forEach((entry) => {
+            if (entry.isIntersecting) {
+              sectionLinks.forEach((link) => {
+                link.classList.toggle(
+                  "text-[var(--accent)]",
+                  link.dataset.sectionLink === entry.target.id,
+                );
+              });
+            }
+          });
+        },
+        { rootMargin: "-35% 0px -55% 0px" },
+      );
+      sections.forEach((section) => section && observer.observe(section));
+
+      // Cursor
+      const cursor = $("#cursor"),
+        cursorRing = $("#cursorRing"),
+        cursorLabel = $("#cursorLabel");
+      let mouseX = innerWidth / 2,
+        mouseY = innerHeight / 2,
+        ringX = mouseX,
+        ringY = mouseY;
+      window.addEventListener(
+        "mousemove",
+        (e) => {
+          mouseX = e.clientX;
+          mouseY = e.clientY;
+          document.documentElement.style.setProperty(
+            "--cursor-x",
+            e.clientX + "px",
+          );
+          document.documentElement.style.setProperty(
+            "--cursor-y",
+            e.clientY + "px",
+          );
+          cursor.style.left = mouseX + "px";
+          cursor.style.top = mouseY + "px";
+        },
+        { passive: true },
+      );
+
+      function cursorLoop() {
+        ringX += (mouseX - ringX) * 0.14;
+        ringY += (mouseY - ringY) * 0.14;
+        cursorRing.style.left = ringX + "px";
+        cursorRing.style.top = ringY + "px";
+        requestAnimationFrame(cursorLoop);
+      }
+      cursorLoop();
+
+      function bindCursorTargets() {
+        $$("[data-cursor]").forEach((el) => {
+          el.addEventListener("mouseenter", () => {
+            cursorRing.classList.add("is-hover");
+            cursorLabel.textContent = el.dataset.cursor || "";
+            cursorLabel.style.display = "block";
+          });
+          el.addEventListener("mouseleave", () => {
+            cursorRing.classList.remove("is-hover");
+            cursorLabel.style.display = "none";
+          });
+        });
+      }
+      bindCursorTargets();
+
+      // Magnetic buttons
+      if (
+        window.matchMedia("(min-width: 768px)").matches &&
+        !window.matchMedia("(prefers-reduced-motion: reduce)").matches
+      ) {
+        $$(".magnetic").forEach((el) => {
+          el.addEventListener("mousemove", (e) => {
+            const r = el.getBoundingClientRect();
+            const x = ((e.clientX - r.left) / r.width - 0.5) * 8;
+            const y = ((e.clientY - r.top) / r.height - 0.5) * 8;
+            el.style.transform = `translate(${x}px, ${y}px)`;
+          });
+          el.addEventListener("mouseleave", () => (el.style.transform = ""));
+        });
+      }
+
+      // Hero parallax
+      const heroVisual = $("#heroVisual");
+      if (
+        heroVisual &&
+        !window.matchMedia("(prefers-reduced-motion: reduce)").matches
+      ) {
+        window.addEventListener(
+          "mousemove",
+          (e) => {
+            if (innerWidth < 900) return;
+            const x = (e.clientX / innerWidth - 0.5) * 7;
+            const y = (e.clientY / innerHeight - 0.5) * 7;
+            heroVisual.style.transform = `translate3d(${x}px, ${y}px, 0)`;
+          },
+          { passive: true },
+        );
+      }
+
+      // Project filtering
+      const filterButtons = $$(".filter-btn");
+      const projectItems = $$(".project-item");
+      filterButtons.forEach((btn) => {
+        btn.addEventListener("click", () => {
+          filterButtons.forEach((b) => b.classList.remove("active"));
+          btn.classList.add("active");
+          const filter = btn.dataset.filter;
+          projectItems.forEach((item) => {
+            const show =
+              filter === "all" ||
+              item.dataset.category.split(" ").includes(filter);
+            item.style.display = show ? "" : "none";
+          });
+        });
+      });
+
+      // Project modal
+      const modal = $("#projectModal");
+      function openProject(id) {
+        const p = PROJECTS[id];
+        if (!p) return;
+        $("#modalKicker").textContent = p.kicker;
+        $("#modalTitle").textContent = p.title;
+        $("#modalText").textContent = p.text;
+        $("#modalFocus").textContent = p.focus;
+        $("#modalTags").innerHTML = p.tags
+          .map(
+            (t) =>
+              `<span class="px-3 py-1 rounded-lg bg-[var(--surface-2)] border border-[var(--border-color)] text-[9px] mono-font">${t}</span>`,
+          )
+          .join("");
+        modal.classList.remove("hidden");
+        modal.classList.add("flex");
+        document.body.style.overflow = "hidden";
+      }
+      function closeProject() {
+        modal.classList.add("hidden");
+        modal.classList.remove("flex");
+        document.body.style.overflow = "";
+      }
+      $$("[data-project]").forEach((el) => {
+        if (
+          el.classList.contains("view-project") ||
+          el.classList.contains("open-case")
+        ) {
+          el.addEventListener("click", () => openProject(el.dataset.project));
+        }
+      });
+      $("#closeModal").addEventListener("click", closeProject);
+      $("#modalBackdrop").addEventListener("click", closeProject);
+      document.addEventListener("keydown", (e) => {
+        if (e.key === "Escape") closeProject();
+      });
+
+      // Terminal reveal
+      const terminalLines = $$(".terminal-line");
+      const terminalObserver = new IntersectionObserver(
+        (entries) => {
+          if (entries.some((e) => e.isIntersecting)) {
+            terminalLines.forEach((line, i) =>
+              setTimeout(() => line.classList.add("show"), i * 170),
+            );
+            terminalObserver.disconnect();
+          }
+        },
+        { threshold: 0.25 },
+      );
+      terminalObserver.observe($("#terminal"));
+
+      // Social links — replace these placeholders with real URLs.
+      const SOCIALS = {
+        github: "#",
+        linkedin: "#",
+      };
+      $$("[data-social]").forEach((link) => {
+        const key = link.dataset.social;
+        link.href = SOCIALS[key] || "#";
+        if (SOCIALS[key] === "#") {
+          link.addEventListener("click", (e) => {
+            e.preventDefault();
+            alert(
+              "Add your real " +
+                key +
+                " URL in the SOCIALS object inside the script.",
+            );
+          });
+        }
+      });
+
+      // Resume — replace with actual PDF path when available.
+      $("#resumeBtn").addEventListener("click", (e) => {
+        e.preventDefault();
+        alert("Add your resume PDF path to the resumeBtn handler.");
+      });
+
+      // Prevent placeholder # social links from jumping.
+      $$('a[href="#"]').forEach((a) => {
+        if (!a.dataset.social && a.id !== "resumeBtn") {
+          a.addEventListener("click", (e) => e.preventDefault());
+        }
+      });
+    </script>
+  </body>
+</html>
